@@ -41,14 +41,12 @@ class HomeFragment : Fragment() {
 
     private fun observerRandomMeal() {
        homeViewModel.getRandomMeal.observe(viewLifecycleOwner){
+
            Glide.with(this@HomeFragment)
                .load(
-                   it?.strMealThumb
-//                   it?.let {  it.strMealThumb}
-//                   it!!.strMealThumb
+                   it[0].strMealThumb
                )
                .into(binding.imgRandomView)
        }
     }
-
 }

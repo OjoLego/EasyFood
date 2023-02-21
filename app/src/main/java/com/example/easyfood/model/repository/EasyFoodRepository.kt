@@ -5,7 +5,7 @@ import com.example.easyfood.model.datasource.EasyFoodApi
 
 class EasyFoodRepository(private val  easyFoodApi: EasyFoodApi) {
 
-    suspend fun getRandomMeal():RandomMeal.Meal{
+    suspend fun getRandomMeal():RandomMeal{
         return easyFoodApi.getRandomMeal()
     }
 }
