@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.easyfood.databinding.FragmentHomeBinding
+import com.example.easyfood.model.data.CategoryMeal
 import com.example.easyfood.model.data.Meal
 import com.example.easyfood.model.data.PopularMeal
-import com.example.easyfood.model.data.MealDetails
+import com.example.easyfood.view.adapter.CategoryMealAdapter
 import com.example.easyfood.view.adapter.MostPopularAdapter
 import com.example.easyfood.view.adapter.PopularMealClickListener
 import com.example.easyfood.viewmodel.HomeViewModel
@@ -23,7 +25,9 @@ class HomeFragment : Fragment(), PopularMealClickListener {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var randomMeal: Meal
     private lateinit var itemPopularMeals: MutableList<PopularMeal>
+    private lateinit var itemCategoriesMeal: MutableList<CategoryMeal>
     var mostPopularAdapter = MostPopularAdapter(this)
+    var categoryMealAdapter = CategoryMealAdapter()
 
     companion object{
         const val MEAL_ID = "com.example.easyfood.view.screen.idMeal"
@@ -54,11 +58,29 @@ class HomeFragment : Fragment(), PopularMealClickListener {
 
         homeViewModel.getMostPopularMeals(MEAL_CATEGORY)
         observerPopularMeals()
-        initRecyclerView()
+        initRecyclerViewPopular()
+
+        homeViewModel.getCategoriesMeal()
+        observerCategoriesMeals()
+        initRecyclerViewCategories()
 
     }
 
-    private fun initRecyclerView() {
+    private fun initRecyclerViewCategories() {
+        binding.recViewCategories.apply {
+            layoutManager = GridLayoutManager(activity,3,GridLayoutManager.VERTICAL,false)
+            adapter = categoryMealAdapter
+        }
+    }
+
+    private fun observerCategoriesMeals() {
+        homeViewModel.getCategoriesMeal.observe(viewLifecycleOwner){
+            itemCategoriesMeal = it.toMutableList()
+            categoryMealAdapter.setCategoriesMealList(itemCategoriesMeal)
+        }
+    }
+
+    private fun initRecyclerViewPopular() {
         binding.recViewMealsPopular.apply {
             layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
             adapter = mostPopularAdapter

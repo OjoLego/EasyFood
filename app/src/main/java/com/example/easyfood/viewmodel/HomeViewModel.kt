@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.easyfood.model.data.CategoryMeal
 import com.example.easyfood.model.data.Meal
 import com.example.easyfood.model.data.PopularMeal
 import com.example.easyfood.model.data.MealDetails
@@ -25,6 +26,9 @@ class HomeViewModel():ViewModel() {
     private var _getPopularMeal = MutableLiveData<List<PopularMeal>>()
     val getPopularMeal : LiveData<List<PopularMeal>> = _getPopularMeal
 
+    private var _getCategoriesMeal = MutableLiveData<List<CategoryMeal>>()
+    val getCategoriesMeal: LiveData<List<CategoryMeal>> = _getCategoriesMeal
+
     fun getRandomMeal(){
         viewModelScope.launch(Dispatchers.IO){
             try {
@@ -44,6 +48,19 @@ class HomeViewModel():ViewModel() {
                 val res1 = easyFoodRepository.getMostPopularMeals(category)
                 Log.d("RandomMeals",res1.meals.toString())
                 _getPopularMeal.postValue(res1.meals)
+            }
+            catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getCategoriesMeal(){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val res2 = easyFoodRepository.getCategoriesMeal()
+                Log.d("CategoriesMeal", res2.categories.toString())
+                _getCategoriesMeal.postValue(res2.categories)
             }
             catch (e:Exception){
                 e.printStackTrace()

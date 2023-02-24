@@ -1,5 +1,6 @@
 package com.example.easyfood.model.datasource
 
+import com.example.easyfood.model.data.CategoryMealList
 import com.example.easyfood.model.data.MealDetailsId
 import com.example.easyfood.model.data.MostPopularMeals
 import com.example.easyfood.model.data.RandomMeal
@@ -16,4 +17,7 @@ interface EasyFoodApi {
 
     @GET("filter.php?")
     suspend fun getMostPopularMeals(@Query("c") categoryName: String): MostPopularMeals
+
+    @GET("categories.php")
+    suspend fun getCategoriesMeal(): CategoryMealList
 }
