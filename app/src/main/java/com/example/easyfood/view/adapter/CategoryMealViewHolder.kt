@@ -14,7 +14,7 @@ class CategoryMealViewHolder(private val binding: CategoryItemsBinding): Recycle
     private val categoryMealImage = binding.imgCategory
     private val categoryMealName = binding.tvCategoryName
 
-    fun bind(categoryMeal: CategoryMeal){
+    fun bind(categoryMeal: CategoryMeal, categoryMealClickListener: CategoryMealClickListener){
         categoryMeal.strCategoryThumb?.let { Log.d(TAG, it) }
         Glide.with(binding.imgCategory.context)
             .load(categoryMeal.strCategoryThumb)
@@ -25,5 +25,12 @@ class CategoryMealViewHolder(private val binding: CategoryItemsBinding): Recycle
             )
             .into(categoryMealImage)
         categoryMealName.text = categoryMeal.strCategory
+
+        categoryMealImage.setOnClickListener { categoryMealClickListener.onCategoryMealClick(
+            categoryMeal.strCategory!!,it
+        ) }
+        categoryMealName.setOnClickListener { categoryMealClickListener.onCategoryMealClick(
+            categoryMeal.strCategory!!,it
+        ) }
     }
 }

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.easyfood.databinding.CategoryItemsBinding
 import com.example.easyfood.model.data.CategoryMeal
 
-class CategoryMealAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CategoryMealAdapter(var categoryMealClickListener: CategoryMealClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var updatedCategoryMealList = mutableListOf<CategoryMeal>()
 
@@ -25,7 +25,8 @@ class CategoryMealAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder){
             is CategoryMealViewHolder -> {
                 holder.bind(
-                    updatedCategoryMealList[position]
+                    updatedCategoryMealList[position],
+                    categoryMealClickListener
                 )
             }
         }

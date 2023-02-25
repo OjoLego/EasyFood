@@ -1,9 +1,6 @@
 package com.example.easyfood.model.datasource
 
-import com.example.easyfood.model.data.CategoryMealList
-import com.example.easyfood.model.data.MealDetailsId
-import com.example.easyfood.model.data.MostPopularMeals
-import com.example.easyfood.model.data.RandomMeal
+import com.example.easyfood.model.data.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -20,4 +17,7 @@ interface EasyFoodApi {
 
     @GET("categories.php")
     suspend fun getCategoriesMeal(): CategoryMealList
+
+    @GET("filter.php")
+    suspend fun getMealByCategory(@Query("c") categoryName:String):MealByCategoryList
 }

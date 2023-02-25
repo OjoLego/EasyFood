@@ -15,11 +15,12 @@ import com.example.easyfood.model.data.CategoryMeal
 import com.example.easyfood.model.data.Meal
 import com.example.easyfood.model.data.PopularMeal
 import com.example.easyfood.view.adapter.CategoryMealAdapter
+import com.example.easyfood.view.adapter.CategoryMealClickListener
 import com.example.easyfood.view.adapter.MostPopularAdapter
 import com.example.easyfood.view.adapter.PopularMealClickListener
 import com.example.easyfood.viewmodel.HomeViewModel
 
-class HomeFragment : Fragment(), PopularMealClickListener {
+class HomeFragment : Fragment(), PopularMealClickListener,CategoryMealClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
@@ -27,7 +28,7 @@ class HomeFragment : Fragment(), PopularMealClickListener {
     private lateinit var itemPopularMeals: MutableList<PopularMeal>
     private lateinit var itemCategoriesMeal: MutableList<CategoryMeal>
     var mostPopularAdapter = MostPopularAdapter(this)
-    var categoryMealAdapter = CategoryMealAdapter()
+    var categoryMealAdapter = CategoryMealAdapter(this)
 
     companion object{
         const val MEAL_ID = "com.example.easyfood.view.screen.idMeal"
@@ -126,6 +127,12 @@ class HomeFragment : Fragment(), PopularMealClickListener {
         intent.putExtra(MEAL_ID,idMeal)
         intent.putExtra(MEAL_NAME,nameMeal)
         intent.putExtra(MEAL_THUMB,thumbMeal)
+        startActivity(intent)
+    }
+
+    override fun onCategoryMealClick(categoryName: String, view: View) {
+        val intent = Intent(activity,CategoryMealsActivity::class.java)
+        intent.putExtra(MEAL_NAME,categoryName)
         startActivity(intent)
     }
 

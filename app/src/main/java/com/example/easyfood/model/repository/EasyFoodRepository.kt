@@ -1,9 +1,6 @@
 package com.example.easyfood.model.repository
 
-import com.example.easyfood.model.data.CategoryMealList
-import com.example.easyfood.model.data.MealDetailsId
-import com.example.easyfood.model.data.MostPopularMeals
-import com.example.easyfood.model.data.RandomMeal
+import com.example.easyfood.model.data.*
 import com.example.easyfood.model.datasource.EasyFoodApi
 
 class EasyFoodRepository(private val  easyFoodApi: EasyFoodApi) {
@@ -22,6 +19,10 @@ class EasyFoodRepository(private val  easyFoodApi: EasyFoodApi) {
 
     suspend fun getCategoriesMeal():CategoryMealList{
         return easyFoodApi.getCategoriesMeal()
+    }
+
+    suspend fun getMealByCategory(categoryName:String):MealByCategoryList{
+        return easyFoodApi.getMealByCategory(categoryName)
     }
 
 }
