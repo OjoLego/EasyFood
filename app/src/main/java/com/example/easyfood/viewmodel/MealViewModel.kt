@@ -1,10 +1,8 @@
 package com.example.easyfood.viewmodel
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.easyfood.database.MealDatabase
 import com.example.easyfood.model.data.Meal
 import com.example.easyfood.model.data.MealDetails
@@ -15,11 +13,14 @@ import kotlinx.coroutines.launch
 
 private const val TAG = "MealViewModel"
 class MealViewModel(
+    application: Application
 //    val mealDatabase: MealDatabase
-    ): ViewModel() {
-
+    ): AndroidViewModel(
+    application
+) {
+    private val mealDao = MealDatabase.getInstance(application).mealDao()
     private val retrofitService = EasyFoodRetrofit.easyFoodRetrofit
-    private val easyFoodRepository = EasyFoodRepository(retrofitService)
+    private val easyFoodRepository = EasyFoodRepository(mealDao,retrofitService)
 
     private var _getMealDetailsId = MutableLiveData<List<MealDetails>>()
     val getMealDetailsId : LiveData<List<MealDetails>> = _getMealDetailsId
@@ -37,15 +38,9 @@ class MealViewModel(
         }
     }
 
-//    fun insertMeal(meal: Meal){
-//        viewModelScope.launch {
-//            mealDatabase.mealDao().upsert(meal)
-//        }
-//    }
-//
-//    fun deleteMeal(meal: Meal){
-//        viewModelScope.launch {
-//            mealDatabase.mealDao().delete(meal)
-//        }
-//    }
+    fun insertMeal(mealDetails: MealDetails){
+        viewModelScope.launch(Dispatchers.IO) {
+            easyFoodRepository.saveRandomMeal(mealDetails)
+        }
+    }
 }

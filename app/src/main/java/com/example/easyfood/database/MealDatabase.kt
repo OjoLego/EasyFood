@@ -6,8 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.easyfood.model.data.Meal
+import com.example.easyfood.model.data.MealDetails
 
-@Database(entities = [Meal::class], version = 1)
+@Database(entities = [MealDetails::class], version = 2)
 @TypeConverters(MealTypeConverter::class)
 abstract class MealDatabase: RoomDatabase() {
 

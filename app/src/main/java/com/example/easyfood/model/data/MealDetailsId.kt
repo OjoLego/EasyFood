@@ -3,6 +3,8 @@ package com.example.easyfood.model.data
 
 import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Keep
 data class MealDetailsId(
@@ -10,12 +12,14 @@ data class MealDetailsId(
     val meals: List<MealDetails>
 )
 
+@Entity(tableName = "mealInformation")
 @Keep
 data class MealDetails(
     @SerializedName("dateModified")
     val dateModified: Any?,
+    @PrimaryKey()
     @SerializedName("idMeal")
-    val idMeal: String?,
+    val idMeal: String,
     @SerializedName("strArea")
     val strArea: String?,
     @SerializedName("strCategory")

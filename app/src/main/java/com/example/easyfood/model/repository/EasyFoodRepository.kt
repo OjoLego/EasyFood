@@ -1,9 +1,24 @@
 package com.example.easyfood.model.repository
 
+import androidx.lifecycle.LiveData
+import com.example.easyfood.database.MealDao
 import com.example.easyfood.model.data.*
 import com.example.easyfood.model.datasource.EasyFoodApi
 
-class EasyFoodRepository(private val  easyFoodApi: EasyFoodApi) {
+class EasyFoodRepository(
+    private val mealDao: MealDao,
+    private val  easyFoodApi: EasyFoodApi
+    ) {
+
+    val readAllMeals: LiveData<List<MealDetails>> = mealDao.getAllMeals()
+
+    suspend fun deleteRandomMeal(mealDetails: MealDetails){
+        mealDao.delete(mealDetails)
+    }
+
+    suspend fun saveRandomMeal(mealDetails:MealDetails){
+       mealDao.upsert(mealDetails)
+    }
 
     suspend fun getRandomMeal():RandomMeal{
         return easyFoodApi.getRandomMeal()

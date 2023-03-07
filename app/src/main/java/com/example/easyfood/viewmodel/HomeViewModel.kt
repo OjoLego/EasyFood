@@ -1,24 +1,28 @@
 package com.example.easyfood.viewmodel
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.easyfood.database.MealDatabase
 import com.example.easyfood.model.data.CategoryMeal
 import com.example.easyfood.model.data.Meal
-import com.example.easyfood.model.data.PopularMeal
 import com.example.easyfood.model.data.MealDetails
+import com.example.easyfood.model.data.PopularMeal
 import com.example.easyfood.model.datasource.EasyFoodRetrofit
 import com.example.easyfood.model.repository.EasyFoodRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 private const val TAG = "EasyFoodViewModel"
-class HomeViewModel():ViewModel() {
+class HomeViewModel(
+    application: Application
+): AndroidViewModel(
+    application
+) {
 
+    private val mealDao = MealDatabase.getInstance(application).mealDao()
     private val retrofitService = EasyFoodRetrofit.easyFoodRetrofit
-    private val easyFoodRepository = EasyFoodRepository(retrofitService)
+    private val easyFoodRepository = EasyFoodRepository(mealDao,retrofitService)
 
     private var _getRandomMeal = MutableLiveData<List<Meal>>()
     val getRandomMeal : LiveData<List<Meal>> = _getRandomMeal
@@ -28,6 +32,8 @@ class HomeViewModel():ViewModel() {
 
     private var _getCategoriesMeal = MutableLiveData<List<CategoryMeal>>()
     val getCategoriesMeal: LiveData<List<CategoryMeal>> = _getCategoriesMeal
+
+    val readAllMeals: LiveData<List<MealDetails>> = easyFoodRepository.readAllMeals
 
     fun getRandomMeal(){
         viewModelScope.launch(Dispatchers.IO){
@@ -65,6 +71,18 @@ class HomeViewModel():ViewModel() {
             catch (e:Exception){
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun insertMeal(mealDetails: MealDetails){
+        viewModelScope.launch(Dispatchers.IO) {
+            easyFoodRepository.saveRandomMeal(mealDetails)
+        }
+    }
+
+    fun deleteMeal(mealDetails: MealDetails){
+        viewModelScope.launch {
+            easyFoodRepository.deleteRandomMeal(mealDetails)
         }
     }
 
