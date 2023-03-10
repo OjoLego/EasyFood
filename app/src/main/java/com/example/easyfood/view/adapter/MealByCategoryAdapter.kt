@@ -7,7 +7,7 @@ import com.example.easyfood.databinding.MealByCategoryBinding
 import com.example.easyfood.model.data.MealByCategory
 
 
-class MealByCategoryAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MealByCategoryAdapter(var mealByCategoryClickListener: MealByCategoryClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var updatedMealByCategoryList = mutableListOf<MealByCategory>()
 
@@ -26,7 +26,8 @@ class MealByCategoryAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder){
             is MealByCategoryViewHolder -> {
                 holder.bind(
-                    updatedMealByCategoryList[position]
+                    updatedMealByCategoryList[position],
+                    mealByCategoryClickListener
                 )
             }
         }

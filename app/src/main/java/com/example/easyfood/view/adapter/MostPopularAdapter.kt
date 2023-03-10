@@ -4,10 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easyfood.databinding.PopularItemsBinding
+import com.example.easyfood.model.data.MealByCategory
+import com.example.easyfood.model.data.MostPopularMeals
 import com.example.easyfood.model.data.PopularMeal
 
 class MostPopularAdapter(var popularMealClickListener: PopularMealClickListener)
     :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+//    var onLongItemClick:((PopularMeal)->Unit) ?= null
 
     var updatedPopularMeals = mutableListOf<PopularMeal>()
 
@@ -28,11 +32,12 @@ class MostPopularAdapter(var popularMealClickListener: PopularMealClickListener)
                 holder.bind(
                     updatedPopularMeals[position],
                     popularMealClickListener
-
-//                    Glide.with(holder.itemView)
-//                        .load(updatedPopularMeals[position].strMealThumb)
-//                        .into()
                 )
+
+//                holder.itemView.setOnLongClickListener {
+//                    onLongItemClick?.invoke(updatedPopularMeals[position])
+//                    true
+//                }
             }
         }
     }

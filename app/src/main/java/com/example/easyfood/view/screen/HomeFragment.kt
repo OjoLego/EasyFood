@@ -130,6 +130,16 @@ class HomeFragment : Fragment(), PopularMealClickListener,CategoryMealClickListe
         startActivity(intent)
     }
 
+    override fun onLongPopularMealClick(
+        idMeal: String,
+        nameMeal: String,
+        thumbMeal: String,
+        view: View
+    ) {
+        val mealBottomSheetFragment = MealBottomSheetFragment.newInstance(idMeal)
+        mealBottomSheetFragment.show(childFragmentManager, "Meal Info")
+    }
+
     override fun onCategoryMealClick(categoryName: String, view: View) {
         val intent = Intent(activity,CategoryMealsActivity::class.java)
         intent.putExtra(MEAL_NAME,categoryName)

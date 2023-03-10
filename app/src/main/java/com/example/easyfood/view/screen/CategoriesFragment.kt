@@ -1,33 +1,34 @@
 package com.example.easyfood.view.screen
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.easyfood.R
+import com.example.easyfood.databinding.FragmentCategoriesBinding
+import com.example.easyfood.model.data.CategoryMeal
+import com.example.easyfood.view.adapter.CategoryMealAdapter
+import com.example.easyfood.view.adapter.CategoryMealClickListener
+import com.example.easyfood.viewmodel.HomeViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class CategoriesFragment : Fragment(), CategoryMealClickListener {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CategoriesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CategoriesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentCategoriesBinding
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var itemCategoriesFragment: MutableList<CategoryMeal>
+    var categoriesFragmentAdapter = CategoryMealAdapter(this)
+
+    companion object{
+        const val MEAL_NAME = "com.example.easyfood.view.screen.nameMeal"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+       homeViewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -35,26 +36,35 @@ class CategoriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false)
+        binding = FragmentCategoriesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CategoriesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CategoriesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        homeViewModel.getCategoriesMeal()
+        observeCategoriesFragment()
+        initRecViewCategoriesFragment()
+    }
+
+    private fun observeCategoriesFragment() {
+        homeViewModel.getCategoriesMeal.observe(viewLifecycleOwner){
+            itemCategoriesFragment = it.toMutableList()
+            categoriesFragmentAdapter.setCategoriesMealList(itemCategoriesFragment)
+        }
+    }
+
+    private fun initRecViewCategoriesFragment() {
+        binding.rvCategoriesFragment.apply {
+            layoutManager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+            adapter = categoriesFragmentAdapter
+        }
+    }
+
+    override fun onCategoryMealClick(categoryName: String, view: View) {
+        val intent = Intent(activity, CategoryMealsActivity::class.java)
+        intent.putExtra(MEAL_NAME,categoryName)
+        startActivity(intent)
     }
 }

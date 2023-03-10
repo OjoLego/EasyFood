@@ -33,6 +33,9 @@ class HomeViewModel(
     private var _getCategoriesMeal = MutableLiveData<List<CategoryMeal>>()
     val getCategoriesMeal: LiveData<List<CategoryMeal>> = _getCategoriesMeal
 
+    private var _getMealDetailsId = MutableLiveData<List<MealDetails>>()
+    val getMealDetailsId : LiveData<List<MealDetails>> = _getMealDetailsId
+
     val readAllMeals: LiveData<List<MealDetails>> = easyFoodRepository.readAllMeals
 
     fun getRandomMeal(){
@@ -86,5 +89,16 @@ class HomeViewModel(
         }
     }
 
-
+    fun getMealDetailsId(id:String){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val res3 = easyFoodRepository.getMealDetailsId(id)
+                Log.d(TAG,res3.meals.toString())
+                _getMealDetailsId.postValue(res3.meals)
+            }
+            catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+    }
 }

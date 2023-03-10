@@ -14,6 +14,8 @@ import kotlinx.coroutines.withContext
 private const val TAG = "MostPopularViewHolder"
 class MostPopularViewHolder(private val binding: PopularItemsBinding) :RecyclerView.ViewHolder(binding.root) {
 
+//    var onLongItemClick:((PopularMeal)->Unit) ?= null
+
     private val popularMealImage = binding.imgPopularMealItem
 
     fun bind(popularMeal: PopularMeal, popularMealClickListener: PopularMealClickListener){
@@ -29,5 +31,16 @@ class MostPopularViewHolder(private val binding: PopularItemsBinding) :RecyclerV
             .into(popularMealImage)
         popularMealImage.setOnClickListener { popularMealClickListener.onPopularMealClick(
             popularMeal.idMeal!!,popularMeal.strMeal!!,popularMeal.strMealThumb!!,it) }
+
+        popularMealImage.setOnLongClickListener {
+            popularMealClickListener.onLongPopularMealClick(
+                popularMeal.idMeal!!, popularMeal.strMeal!!, popularMeal.strMealThumb!!, it)
+            true
+        }
+
+//        itemView.setOnLongClickListener {
+//            onLongItemClick?.invoke(popularMeal)
+//            true
+//        }
     }
 }

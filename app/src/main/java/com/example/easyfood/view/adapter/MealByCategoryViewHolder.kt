@@ -14,7 +14,7 @@ class MealByCategoryViewHolder (private val binding: MealByCategoryBinding): Rec
     private val mealByCategoryImg = binding.mealByCategoryImg
     private val mealByCategoryName = binding.mealByCategoryName
 
-    fun bind(mealByCategory: MealByCategory){
+    fun bind(mealByCategory: MealByCategory, mealByCategoryClickListener: MealByCategoryClickListener){
         mealByCategory.strMealThumb?.let { Log.d(TAG,it)}
         Glide.with(binding.mealByCategoryImg.context)
             .load(mealByCategory.strMealThumb)
@@ -25,7 +25,17 @@ class MealByCategoryViewHolder (private val binding: MealByCategoryBinding): Rec
             )
             .into(mealByCategoryImg)
         mealByCategoryName.text = mealByCategory.strMeal
+
+        mealByCategoryName.setOnClickListener {
+            mealByCategoryClickListener.onMealByCategoryClick(
+                mealByCategory.idMeal!!, mealByCategory.strMeal!!, mealByCategory.strMealThumb!!, it
+            )
+        }
+
+        mealByCategoryImg.setOnClickListener {
+            mealByCategoryClickListener.onMealByCategoryClick(
+                mealByCategory.idMeal!!, mealByCategory.strMeal!!, mealByCategory.strMealThumb!!, it
+            )
+        }
     }
-
-
 }

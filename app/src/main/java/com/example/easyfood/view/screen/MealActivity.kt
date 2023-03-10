@@ -42,6 +42,16 @@ class MealActivity : AppCompatActivity() {
 
         onFavoriteClick()
         getFavoritesMealInfoFromIntent()
+
+        getCategoriesMealInfoFromIntent()
+
+    }
+
+    private fun getCategoriesMealInfoFromIntent() {
+        val intent = intent
+        mealId = intent.getStringExtra(CategoryMealsActivity.MEAL_ID)!!
+        mealName = intent.getStringExtra(CategoryMealsActivity.MEAL_NAME)!!
+        mealThumb = intent.getStringExtra(CategoryMealsActivity.MEAL_THUMB)!!
     }
 
     private fun getFavoritesMealInfoFromIntent() {
