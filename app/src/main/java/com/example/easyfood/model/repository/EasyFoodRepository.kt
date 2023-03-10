@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.easyfood.database.MealDao
 import com.example.easyfood.model.data.*
 import com.example.easyfood.model.datasource.EasyFoodApi
+import retrofit2.http.Query
 
 class EasyFoodRepository(
     private val mealDao: MealDao,
@@ -39,5 +40,13 @@ class EasyFoodRepository(
     suspend fun getMealByCategory(categoryName:String):MealByCategoryList{
         return easyFoodApi.getMealByCategory(categoryName)
     }
+
+    suspend fun searchMeals(searchQuery: String): MealDetailsId{
+        return easyFoodApi.searchMeals(searchQuery)
+    }
+
+//    suspend fun searchMeals(searchQuery: String): SearchMealList{
+//        return easyFoodApi.searchMeals(searchQuery)
+//    }
 
 }

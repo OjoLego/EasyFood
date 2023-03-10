@@ -20,4 +20,9 @@ interface EasyFoodApi {
 
     @GET("filter.php")
     suspend fun getMealByCategory(@Query("c") categoryName:String):MealByCategoryList
+
+    @GET("search.php")
+    suspend fun searchMeals(@Query("s") searchQuery: String): MealDetailsId
+//    @GET("search.php")
+//    suspend fun searchMeals(@Query("s") searchQuery: String): SearchMealList
 }

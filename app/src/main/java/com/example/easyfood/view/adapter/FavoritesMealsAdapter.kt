@@ -10,6 +10,7 @@ import com.example.easyfood.databinding.CategoryItemsBinding
 import com.example.easyfood.databinding.MealByCategoryBinding
 import com.example.easyfood.model.data.CategoryMeal
 import com.example.easyfood.model.data.MealDetails
+import com.example.easyfood.model.data.SearchMeal
 
 class FavoritesMealsAdapter(var favoritesMealsClickListener: FavoritesMealsClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -40,5 +41,13 @@ class FavoritesMealsAdapter(var favoritesMealsClickListener: FavoritesMealsClick
     override fun getItemCount(): Int {
         return updatedFavoritesMealsList.size
     }
+
+
+
+//    var updatedSearchedMealsList = mutableListOf<SearchMeal>()
+//    fun setSearchedMealsList(itemsSearchedMeals: List<SearchMeal>){
+//        updatedSearchedMealsList = itemsSearchedMeals.toMutableList()
+//        notifyDataSetChanged()
+//    }
 
 }

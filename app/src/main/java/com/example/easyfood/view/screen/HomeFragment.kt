@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.easyfood.R
 import com.example.easyfood.databinding.FragmentHomeBinding
 import com.example.easyfood.model.data.CategoryMeal
 import com.example.easyfood.model.data.Meal
@@ -65,6 +67,13 @@ class HomeFragment : Fragment(), PopularMealClickListener,CategoryMealClickListe
         observerCategoriesMeals()
         initRecyclerViewCategories()
 
+        onSearchEtItemClick()
+    }
+
+    private fun onSearchEtItemClick() {
+        binding.imgSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
     }
 
     private fun initRecyclerViewCategories() {

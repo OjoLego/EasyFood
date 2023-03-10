@@ -4,14 +4,12 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.easyfood.database.MealDatabase
-import com.example.easyfood.model.data.CategoryMeal
-import com.example.easyfood.model.data.Meal
-import com.example.easyfood.model.data.MealDetails
-import com.example.easyfood.model.data.PopularMeal
+import com.example.easyfood.model.data.*
 import com.example.easyfood.model.datasource.EasyFoodRetrofit
 import com.example.easyfood.model.repository.EasyFoodRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.http.Query
 
 private const val TAG = "EasyFoodViewModel"
 class HomeViewModel(
@@ -35,6 +33,11 @@ class HomeViewModel(
 
     private var _getMealDetailsId = MutableLiveData<List<MealDetails>>()
     val getMealDetailsId : LiveData<List<MealDetails>> = _getMealDetailsId
+
+    private var _searchMeals = MutableLiveData<List<MealDetails>>()
+    val searchMeal: LiveData<List<MealDetails>> = _searchMeals
+//    private var _searchMeals = MutableLiveData<List<SearchMeal>>()
+//    val searchMeal: LiveData<List<SearchMeal>> = _searchMeals
 
     val readAllMeals: LiveData<List<MealDetails>> = easyFoodRepository.readAllMeals
 
@@ -95,6 +98,19 @@ class HomeViewModel(
                 val res3 = easyFoodRepository.getMealDetailsId(id)
                 Log.d(TAG,res3.meals.toString())
                 _getMealDetailsId.postValue(res3.meals)
+            }
+            catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun searchMeals(searchQuery: String){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val res = easyFoodRepository.searchMeals(searchQuery)
+                Log.d("Search Meals", res.meals.toString())
+                _searchMeals.postValue(res.meals)
             }
             catch (e:Exception){
                 e.printStackTrace()
