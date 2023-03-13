@@ -11,8 +11,6 @@ import com.example.easyfood.model.data.PopularMeal
 class MostPopularAdapter(var popularMealClickListener: PopularMealClickListener)
     :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-//    var onLongItemClick:((PopularMeal)->Unit) ?= null
-
     var updatedPopularMeals = mutableListOf<PopularMeal>()
 
     fun setMostPopularMealsDetails(itemsPopularMeals:List<PopularMeal>){
@@ -33,11 +31,6 @@ class MostPopularAdapter(var popularMealClickListener: PopularMealClickListener)
                     updatedPopularMeals[position],
                     popularMealClickListener
                 )
-
-//                holder.itemView.setOnLongClickListener {
-//                    onLongItemClick?.invoke(updatedPopularMeals[position])
-//                    true
-//                }
             }
         }
     }

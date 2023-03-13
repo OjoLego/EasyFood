@@ -9,10 +9,10 @@ interface EasyFoodApi {
     @GET("random.php")
     suspend fun getRandomMeal():RandomMeal
 
-    @GET("lookup.php?")
+    @GET("lookup.php")
     suspend fun getMealDetailId(@Query("i") id: String):MealDetailsId
 
-    @GET("filter.php?")
+    @GET("filter.php")
     suspend fun getMostPopularMeals(@Query("c") categoryName: String): MostPopularMeals
 
     @GET("categories.php")

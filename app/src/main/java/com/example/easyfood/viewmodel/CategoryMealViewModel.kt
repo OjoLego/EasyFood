@@ -11,11 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 private const val TAG = "CategoryMealViewModel"
-class CategoryMealViewModel(
-    application: Application
-): AndroidViewModel(
-    application
-) {
+class CategoryMealViewModel(application: Application): AndroidViewModel(application) {
 
     private val mealDao = MealDatabase.getInstance(application).mealDao()
     private val retrofitService = EasyFoodRetrofit.easyFoodRetrofit

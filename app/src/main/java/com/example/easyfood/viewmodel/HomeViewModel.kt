@@ -12,11 +12,7 @@ import kotlinx.coroutines.launch
 import retrofit2.http.Query
 
 private const val TAG = "EasyFoodViewModel"
-class HomeViewModel(
-    application: Application
-): AndroidViewModel(
-    application
-) {
+class HomeViewModel(application: Application): AndroidViewModel(application) {
 
     private val mealDao = MealDatabase.getInstance(application).mealDao()
     private val retrofitService = EasyFoodRetrofit.easyFoodRetrofit

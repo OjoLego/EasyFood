@@ -41,13 +41,4 @@ class FavoritesMealsAdapter(var favoritesMealsClickListener: FavoritesMealsClick
     override fun getItemCount(): Int {
         return updatedFavoritesMealsList.size
     }
-
-
-
-//    var updatedSearchedMealsList = mutableListOf<SearchMeal>()
-//    fun setSearchedMealsList(itemsSearchedMeals: List<SearchMeal>){
-//        updatedSearchedMealsList = itemsSearchedMeals.toMutableList()
-//        notifyDataSetChanged()
-//    }
-
 }
