@@ -8,12 +8,15 @@ import androidx.room.TypeConverters
 import com.example.easyfood.model.data.Meal
 import com.example.easyfood.model.data.MealDetails
 
+//Creating instance of the MealDatabase
 @Database(entities = [MealDetails::class], version = 2)
 @TypeConverters(MealTypeConverter::class)
 abstract class MealDatabase: RoomDatabase() {
 
+    //Creating an instance of the MealDao Interface
     abstract fun mealDao(): MealDao
 
+    //Creating an instance of the MealDatabase using the fun getInstance
     companion object{
         @Volatile
         var INSTANCE:MealDatabase? = null

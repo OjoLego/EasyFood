@@ -1,5 +1,6 @@
 package com.example.easyfood.view.screen
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,6 +26,12 @@ class SearchFragment : Fragment(), FavoritesMealsClickListener {
     private lateinit var itemsSearchedMeals: MutableList<MealDetails>
     var searchMealsAdapter = FavoritesMealsAdapter(this)
     private lateinit var homeViewModel: HomeViewModel
+
+    companion object{
+        const val MEAL_ID = "com.example.easyfood.view.screen.idMeal"
+        const val MEAL_NAME = "com.example.easyfood.view.screen.nameMeal"
+        const val MEAL_THUMB = "com.example.easyfood.view.screen.thumbMeal"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +96,11 @@ class SearchFragment : Fragment(), FavoritesMealsClickListener {
         thumbMeal: String,
         view: View
     ) {
+        val intent = Intent(activity,MealActivity::class.java)
+        intent.putExtra(MEAL_ID,idMeal)
+        intent.putExtra(MEAL_NAME,nameMeal)
+        intent.putExtra(MEAL_THUMB,thumbMeal)
+        startActivity(intent)
 
     }
 }

@@ -11,12 +11,16 @@ class EasyFoodRepository(
     private val  easyFoodApi: EasyFoodApi
     ) {
 
+
+    //obtaining data from the MealDatabase using MealDao
     val readAllMeals: LiveData<List<MealDetails>> = mealDao.getAllMeals()
 
+    //delete single Meal in the MealDataBase using the MealDao
     suspend fun deleteRandomMeal(mealDetails: MealDetails){
         mealDao.delete(mealDetails)
     }
 
+    //save single randomMeal in the MealDataBase using the MealDao
     suspend fun saveRandomMeal(mealDetails:MealDetails){
        mealDao.upsert(mealDetails)
     }

@@ -6,12 +6,14 @@ import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// Class of List of MealDetails By Id
 @Keep
 data class MealDetailsId(
     @SerializedName("meals")
     val meals: List<MealDetails>
 )
 
+// Class of MealDetails for MealDatabase Entity
 @Entity(tableName = "mealInformation")
 @Keep
 data class MealDetails(

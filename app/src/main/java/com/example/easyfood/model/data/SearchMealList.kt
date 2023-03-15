@@ -4,11 +4,13 @@ package com.example.easyfood.model.data
 import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
 
+// Class of List of SearchMeal
 @Keep
 data class SearchMealList(
     @SerializedName("meals")
     val meals: List<SearchMeal>
 )
+// Class of SearchMeal
     @Keep
     data class SearchMeal(
         @SerializedName("dateModified")

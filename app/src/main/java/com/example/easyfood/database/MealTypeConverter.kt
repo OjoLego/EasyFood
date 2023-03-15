@@ -3,6 +3,7 @@ package com.example.easyfood.database
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 
+//creating a class to convert data for database
 @TypeConverters
 class MealTypeConverter {
 

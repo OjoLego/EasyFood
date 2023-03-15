@@ -6,12 +6,14 @@ import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// Class of List of Meal
 @Keep
 data class RandomMeal(
     @SerializedName("meals")
     val meals: List<Meal>
 )
 
+// Class of Meal
 @Keep
 data class Meal(
     @SerializedName("dateModified")

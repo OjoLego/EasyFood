@@ -44,7 +44,14 @@ class MealActivity : AppCompatActivity() {
         getFavoritesMealInfoFromIntent()
 
         getCategoriesMealInfoFromIntent()
+        getSearchedMealInfoFromIntent()
+    }
 
+    private fun getSearchedMealInfoFromIntent() {
+        val intent = intent
+        mealId = intent.getStringExtra(SearchFragment.MEAL_ID)!!
+        mealName = intent.getStringExtra(SearchFragment.MEAL_NAME)!!
+        mealThumb = intent.getStringExtra(SearchFragment.MEAL_THUMB)!!
     }
 
     private fun getCategoriesMealInfoFromIntent() {
